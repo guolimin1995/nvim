@@ -385,10 +385,10 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'junkblocker/git-time-lapse'
 
 " Testing my own plugin
-Plug 'theniceboy/vim-calc'
+" Plug 'theniceboy/vim-calc'
 
 " Pretty Dress
-Plug 'theniceboy/eleline.vim'
+Plug 'liuchengxu/eleline.vim'
 Plug 'bling/vim-bufferline'
 "Plug 'liuchengxu/space-vim-theme'
 "Plug 'morhetz/gruvbox'
@@ -401,12 +401,12 @@ Plug 'ajmwagar/vim-deus'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " File navigation
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vim'
 "Plug 'yuki-ycino/fzf-preview.vim'
 "Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 "Plug 'junegunn/fzf'
@@ -466,25 +466,8 @@ Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 "Plug 'vim-scripts/indentpython.vim', { 'for' :['python', 'vim-plug'] }
-"Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
+Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim'
-
-" Flutter
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'thosakwe/vim-flutter'
-
-" Swift
-Plug 'keith/swift.vim'
-
-" rust
-Plug 'rust-lang/rust.vim'
-
-
-" Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown'] }
-Plug 'theniceboy/bullets.vim'
 
 " Other filetypes
 Plug 'jceb/vim-orgmode', {'for': ['vim-plug', 'org']}
@@ -516,6 +499,7 @@ Plug 'Chiel92/vim-autoformat'
 
 " For general writing
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 "Plug 'reedes/vim-wordy'
 "Plug 'ron89/thesaurus_query.vim'
 
@@ -531,7 +515,7 @@ Plug 'osyo-manga/vim-anzu'
 "Plug 'KabbAmine/zeavim.vim' " <LEADER>z to find doc
 
 " Mini Vim-APP
-"Plug 'liuchengxu/vim-clap'
+Plug 'liuchengxu/vim-clap', {'do': ':Clap install-binary'}
 "Plug 'jceb/vim-orgmode'
 Plug 'mhinz/vim-startify'
 
@@ -555,13 +539,16 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'roxma/nvim-yarp'
 
-" vim-go
-Plug 'fatih/vim-go'
+"comment
+Plug 'tpope/vim-commentary'
 
-" theme gruvbox
+" themes
 Plug 'morhetz/gruvbox'
 Plug 'kaicataldo/material.vim'
 Plug 'mhartington/oceanic-next'
+Plug 'voronianski/oceanic-next-color-scheme'
+Plug 'arcticicestudio/nord-vim'
+Plug 'cocopon/iceberg.vim'
 
 call plug#end()
 
@@ -575,32 +562,35 @@ set lazyredraw
 " ===
 set termguicolors " enable true colors support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"set background=dark
-"let ayucolor="mirage"
-"let g:oceanic_next_terminal_bold = 1
-"let g:oceanic_next_terminal_italic = 1
-"let g:one_allow_italics = 1
+set background=dark
+let ayucolor="mirage"
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+let g:one_allow_italics = 1
 
-" let g:material_theme_style = 'ocean'
-
-" color material
+let g:material_theme_style = 'oceanicnext'
 
 syntax enable
 
 color OceanicNext
+
 let g:airline_theme='oceanicnext'
 
-"color dracula
-"color one
-"color deus
-"color gruvbox
-"let ayucolor="light"
-"color ayu
-"color xcodelighthc
-"set background=light
-"set cursorcolumn
 
 hi NonText ctermfg=gray guifg=grey10
+
+
+" vim-clap
+let g:clap_layout = { 'relative': 'editor' }
+let g:clap_theme = 'solarized_dark'
+let g:clap_layout = { 'width': '70%', 'height': '40%', 'col': '15%', 'row': '17%' }
+let g:clap_use_pure_python = 1
+let g:clap_preview_size = 50
+noremap <C-p> :Clap files<CR>
+noremap <C-l> :Clap lines<CR>
+noremap <C-i> :Clap filer<CR>
+
+
 "hi SpecialKey ctermfg=blue guifg=grey70
 
 " ===================== Start of Plugin Settings =====================
@@ -692,31 +682,6 @@ noremap <silent> T :CocList tasks<CR>
 " coc-go
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
-"===
-" === MarkdownPreview
-" ===
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_open_ip = ''
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
-let g:mkdp_preview_options = {
-			\ 'mkit': {},
-			\ 'katex': {},
-			\ 'uml': {},
-			\ 'maid': {},
-			\ 'disable_sync_scroll': 0,
-			\ 'sync_scroll_type': 'middle',
-			\ 'hide_yaml_meta': 1
-			\ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-let g:mkdp_page_title = '「${name}」'
-
 
 " ===
 " === vim-table-mode
@@ -729,19 +694,19 @@ let g:table_mode_cell_text_object_i_map = 'k<Bar>'
 " ===
 " === FZF
 " ===
-set rtp+=/usr/local/opt/fzf
-set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
-set rtp+=/home/david/.linuxbrew/opt/fzf
-noremap <C-p> :Files<CR>
-noremap <C-f> :Rg<CR>
-noremap <C-h> :History<CR>
+"set rtp+=/usr/local/opt/fzf
+"set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+"set rtp+=/home/david/.linuxbrew/opt/fzf
+"noremap <C-p> :Files<CR>
+"noremap <C-f> :Rg<CR>
+"noremap <C-h> :History<CR>
 "noremap <C-t> :BTags<CR>
-noremap <C-l> :Lines<CR>
-noremap <C-w> :Buffers<CR>
-noremap <leader>; :History:<CR>
+"noremap <C-l> :Lines<CR>
+"noremap <C-w> :Buffers<CR>
+"noremap <leader>; :History:<CR>
 
-let g:fzf_preview_window = 'right:60%'
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+"let g:fzf_preview_window = 'right:60%'
+"let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 function! s:list_buffers()
   redir => list
@@ -1070,7 +1035,10 @@ nmap ' <Plug>(easymotion-bd-f)
 " ===
 " === goyo
 " ===
-map <LEADER>gy :Goyo<CR>
+map <LEADER>n :Goyo<CR>
+"进入goyo模式后自动触发limelight,退出后则关闭
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 
 " ===
@@ -1086,7 +1054,7 @@ nmap zuz <Plug>(FastFoldUpdate)
 let g:fastfold_savehook = 1
 let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'ze', 'zu']
-let g:markdown_folding = 1
+"let g:markdown_folding = 1
 let g:tex_fold_enabled = 1
 let g:vimsyn_folding = 'af'
 let g:xml_syntax_folding = 1
@@ -1096,7 +1064,7 @@ let g:ruby_fold = 1
 let g:perl_fold = 1
 let g:perl_fold_blocks = 1
 let g:r_syntax_folding = 1
-let g:rust_fold = 1
+"let g:rust_fold = 1
 let g:php_folding = 1
 
 
@@ -1180,24 +1148,6 @@ noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
 sign define vimspectorBP text=☛ texthl=Normal
 sign define vimspectorBPDisabled text=☞ texthl=Normal
 sign define vimspectorPC text=🔶 texthl=SpellBad
-
-
-" ===
-" === reply.vim
-" ===
-"noremap <LEADER>rp :w<CR>:Repl<CR><C-\><C-N><C-w><C-h>
-"noremap <LEADER>rs :ReplSend<CR><C-w><C-l>a<CR><C-\><C-N><C-w><C-h>
-"noremap <LEADER>rt :ReplStop<CR>
-
-
-" ===
-" === vim-markdown-toc
-" ===
-"let g:vmt_auto_update_on_save = 0
-"let g:vmt_dont_insert_fence = 1
-let g:vmt_cycle_list_item_markers = 1
-let g:vmt_fence_text = 'TOC'
-let g:vmt_fence_closing_text = '/TOC'
 
 
 " ===

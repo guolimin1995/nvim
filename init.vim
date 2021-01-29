@@ -48,12 +48,13 @@ set autochdir
 " === Editor behavior
 " ===
 set number
+syntax enable
 set relativenumber
 set cursorline
 set noexpandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set autoindent
 set list
 set listchars=tab:\|\ ,trail:▫
@@ -78,6 +79,7 @@ set smartcase
 set shortmess+=c
 set inccommand=split
 set completeopt=longest,noinsert,menuone,noselect,preview
+set re=1
 set ttyfast "should make scrolling faster
 set lazyredraw "same as above
 set visualbell
@@ -93,6 +95,7 @@ endif
 set colorcolumn=80
 set updatetime=1000
 set virtualedit=block
+
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -374,7 +377,7 @@ endfunc
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'tiagofumo/dart-vim-flutter-layout'
+" Plug 'tiagofumo/dart-vim-flutter-layout'
 Plug 'RRethy/vim-illuminate'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'KabbAmine/vCoolor.vim'
@@ -395,7 +398,7 @@ Plug 'bling/vim-bufferline'
 "Plug 'ayu-theme/ayu-vim'
 "Plug 'rakr/vim-one'
 "Plug 'mhartington/oceanic-next'
-"Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'ajmwagar/vim-deus'
 "Plug 'arzg/vim-colors-xcode'
 
@@ -464,7 +467,7 @@ Plug 'fatih/vim-go' , { 'for': ['go', 'vim-plug'], 'tag': '*' }
 " Python
 Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 "Plug 'vim-scripts/indentpython.vim', { 'for' :['python', 'vim-plug'] }
 Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim'
@@ -530,7 +533,7 @@ Plug 'wincent/terminus'
 
 " Other useful utilities
 Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
-Plug 'makerj/vim-pdf'
+" Plug 'makerj/vim-pdf'
 "Plug 'xolox/vim-session'
 "Plug 'xolox/vim-misc' " vim-session dep
 
@@ -542,13 +545,17 @@ Plug 'roxma/nvim-yarp'
 "comment
 Plug 'tpope/vim-commentary'
 
+" indentLine
+Plug 'Yggdroot/indentLine'
+
 " themes
 Plug 'morhetz/gruvbox'
 Plug 'kaicataldo/material.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'voronianski/oceanic-next-color-scheme'
-Plug 'arcticicestudio/nord-vim'
 Plug 'cocopon/iceberg.vim'
+Plug 'liuchengxu/space-vim-theme'
+
 
 call plug#end()
 
@@ -570,19 +577,19 @@ let g:one_allow_italics = 1
 
 let g:material_theme_style = 'oceanicnext'
 
-syntax enable
 
-color OceanicNext
+
+colorscheme oceanicnext
 
 let g:airline_theme='oceanicnext'
-
 
 hi NonText ctermfg=gray guifg=grey10
 
 
 " vim-clap
 let g:clap_layout = { 'relative': 'editor' }
-let g:clap_theme = 'solarized_dark'
+let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
+"let g:clap_theme = 'solarized_dark'
 let g:clap_layout = { 'width': '70%', 'height': '40%', 'col': '15%', 'row': '17%' }
 let g:clap_use_pure_python = 1
 let g:clap_preview_size = 50
@@ -958,9 +965,14 @@ let g:go_highlight_string_spellcheck = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_trailing_whitespace_error = 1
 let g:go_highlight_types = 1
-let g:go_highlight_variable_assignments = 0
-let g:go_highlight_variable_declarations = 0
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_variable_declarations = 1
 let g:go_doc_keywordprg_enabled = 0
+
+" new add
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_diagnostic_errors = 1
+let g:go_highlight_diagnostic_warnings = 1
 
 
 " ===
@@ -1189,6 +1201,19 @@ let g:rooter_patterns = ['__vim_project_root', '.git/']
 " === AsyncRun
 " ===
 noremap gp :AsyncRun git push<CR>
+
+" ===
+" === semshi
+" ===
+let g:semshi#excluded_hl_groups = []
+function MyCustomHighlights()
+    hi semshiLocal      ctermfg=red guifg=#009688
+	hi semshiParameterUnused ctermfg=117 guifg=#BDBDBD cterm=underline gui=underline
+	" hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+	hi semshiImported        ctermfg=214 guifg=#CDDC39
+endfunction
+autocmd FileType python call MyCustomHighlights()
+
 
 
 " ===

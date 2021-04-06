@@ -1,5 +1,4 @@
 {
-	"coc.preferences.hoverTarget": "preview",
 	"coc.preferences.enableFloatHighlight": true,
 	"coc.preferences.snippetStatusText": "Ⓢ ",
 	"coc.preferences.extensionUpdateCheck": "daily",
@@ -41,14 +40,12 @@
 		"value": "\uf89f",
 		"variable": "\ue71b"
 	},
-	"diagnostic.signOffset": 1,
 	"diagnostic.errorSign": "×",
 	"diagnostic.warningSign": "»",
 	"diagnostic.infoSign": "ღ",
 	"diagnostic.hintSign": "ஐ",
 	"diagnostic.displayByAle": false,
 	"diagnostic.refreshOnInsertMode": false,
-	"diagnostic.refreshAfterSave": false,
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
@@ -80,10 +77,10 @@
 	"explorer.file.column.indent.indentLine": true,
 	"explorer.file.showHiddenFiles": true,
 	"explorer.icon.enableNerdfont": true,
-	"explorer.file.column.git.showIgnored": true,
+	"explorer.git.showIgnored": true,
 	"explorer.keyMappingMode": "none",
 	"explorer.buffer.showHiddenBuffers": false,
-	"explorer.keyMappings": {
+	"explorer.keyMappings.global": {
 		"u": "nodePrev",
 		"e": "nodeNext",
 		"h": "toggleSelection",
@@ -146,7 +143,6 @@
 	"git.topRemovedSign.text": "▔",
 	"git.changeRemovedSign.text": "▒",
 	"git.enableGlobalStatus": false,
-	"git.signOffset": 2,
 	"tslint.autoFixOnSave": true,
 	"python.autoComplete.addBrackets": true,
 	"python.jediEnabled": false,
@@ -161,8 +157,6 @@
 	"javascript.suggest.names": true,
 	"javascript.suggestionActions.enabled": true,
 	"json.format.enable": true,
-	"todolist.autoUpload": true,
-	"todolist.promptForReminder":false,
 	"coc-actions.hideCursor": false,
 	"coc-actions.showActionKind": true,
 	"diagnostic-languageserver.filetypes": {
@@ -186,13 +180,14 @@
 			"filetypes": ["lua"]
 		},
 		"golang": {
-			"command": "/Users/zerone/go/bin/gopls",
+			"command": "/Users/zerone/go/bin/go-langserver",
 			"rootPatterns": ["go.mod"],
 			"filetypes": ["go"],
 			"initializationOptions": {
 				"gocodeCompletionEnabled": true,
 				"diagnosticsEnabled": true,
-				"lintTool": "golint"
+				"lintTool": "golint",
+				"funcSnippetEnabled": true
 			}
 		},
 		"bash": {

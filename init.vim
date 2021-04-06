@@ -555,7 +555,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'voronianski/oceanic-next-color-scheme'
 Plug 'cocopon/iceberg.vim'
 Plug 'liuchengxu/space-vim-theme'
-
+Plug 'NLKNguyen/papercolor-theme'
 
 call plug#end()
 
@@ -687,7 +687,7 @@ nnoremap <leader>tu :CocCommand todolist.download<CR>:CocCommand todolist.upload
 noremap <silent> T :CocList tasks<CR>
 
 " coc-go
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 
 " ===
@@ -747,25 +747,25 @@ let g:ctrlp_cmd = 'CtrlP'
 " ===
 " === vim-bookmarks
 " ===
-let g:bookmark_no_default_key_mappings = 1
-nmap mt <Plug>BookmarkToggle
-nmap ma <Plug>BookmarkAnnotate
-nmap ml <Plug>BookmarkShowAll
-nmap mi <Plug>BookmarkNext
-nmap mn <Plug>BookmarkPrev
-nmap mC <Plug>BookmarkClear
-nmap mX <Plug>BookmarkClearAll
-nmap mu <Plug>BookmarkMoveUp
-nmap me <Plug>BookmarkMoveDown
-nmap <Leader>g <Plug>BookmarkMoveToLine
-let g:bookmark_save_per_working_dir = 1
-let g:bookmark_auto_save = 1
-let g:bookmark_highlight_lines = 1
-let g:bookmark_manage_per_buffer = 1
-let g:bookmark_save_per_working_dir = 1
-let g:bookmark_center = 1
-let g:bookmark_auto_close = 1
-let g:bookmark_location_list = 1
+" let g:bookmark_no_default_key_mappings = 1
+" nmap mt <Plug>BookmarkToggle
+" nmap ma <Plug>BookmarkAnnotate
+" nmap ml <Plug>BookmarkShowAll
+" nmap mi <Plug>BookmarkNext
+" nmap mn <Plug>BookmarkPrev
+" nmap mC <Plug>BookmarkClear
+" nmap mX <Plug>BookmarkClearAll
+" nmap mu <Plug>BookmarkMoveUp
+" nmap me <Plug>BookmarkMoveDown
+" nmap <Leader>g <Plug>BookmarkMoveToLine
+" let g:bookmark_save_per_working_dir = 1
+" let g:bookmark_auto_save = 1
+" let g:bookmark_highlight_lines = 1
+" let g:bookmark_manage_per_buffer = 1
+" let g:bookmark_save_per_working_dir = 1
+" let g:bookmark_center = 1
+" let g:bookmark_auto_close = 1
+" let g:bookmark_location_list = 1
 
 
 " ===

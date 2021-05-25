@@ -486,7 +486,7 @@ Plug 'gcmt/wildfire.vim' " in Visual mode, type k' to select all text in '', or 
 Plug 'junegunn/vim-after-object' " da= to delete what's after =
 Plug 'junegunn/vim-easy-align' " gaip= to align the = in paragraph, 
 Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 Plug 'Konfekt/FastFold'
 "Plug 'junegunn/vim-peekaboo'
 "Plug 'wellle/context.vim'
@@ -523,7 +523,7 @@ Plug 'liuchengxu/vim-clap', {'do': ':Clap install-binary'}
 Plug 'mhinz/vim-startify'
 
 " Vim Applications
-Plug 'itchyny/calendar.vim'
+" Plug 'itchyny/calendar.vim'
 
 " Other visual enhancement
 Plug 'ryanoasis/vim-devicons'
@@ -556,6 +556,17 @@ Plug 'voronianski/oceanic-next-color-scheme'
 Plug 'cocopon/iceberg.vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'hzchirs/vim-material'
+Plug 'joshdick/onedark.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'rainglow/vim'
+
+" language packs
+Plug 'sheerun/vim-polyglot'
+
+" smooth scrolling
+Plug 'psliwka/vim-smoothie'
+
 
 call plug#end()
 
@@ -579,7 +590,25 @@ let g:material_theme_style = 'oceanicnext'
 
 
 
-colorscheme oceanicnext
+" colorscheme oceanicnext
+let g:onedark_termcolors=256
+" onedark setting
+if (has("autocmd"))
+  augroup colorextend
+    autocmd!
+    " Make `Function`s bold in GUI mode
+    " autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold" })
+    " Override the `Statement` foreground color in 256-color mode
+    " autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { "cterm": 128 } })
+    " Override the `Identifier` background color in GUI mode
+    autocmd ColorScheme * call onedark#extend_highlight("goVarDefs", { "fg": { "gui": "#009688" } })
+    autocmd ColorScheme * call onedark#extend_highlight("goVarAssign", { "fg": { "gui": "#009688" } })
+  augroup END
+endif 
+
+"iceberg jumper
+" lichen-contrast waste
+colorscheme onedark
 
 let g:airline_theme='oceanicnext'
 
@@ -634,7 +663,7 @@ nnoremap gb :Gblame<CR>
 " ===
 " fix the most annoying bug that coc has
 "silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
-let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-gitignore', 'coc-vimlsp', 'coc-tailwindcss', 'coc-stylelint', 'coc-tslint', 'coc-lists', 'coc-git', 'coc-explorer', 'coc-pyright', 'coc-sourcekit', 'coc-translator', 'coc-flutter', 'coc-todolist', 'coc-yaml', 'coc-tasks', 'coc-actions', 'coc-diagnostic']
+let g:coc_global_extensions = ['coc-explorer', 'coc-python', 'coc-vimlsp', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-gitignore', 'coc-vimlsp', 'coc-tailwindcss', 'coc-stylelint', 'coc-tslint', 'coc-lists', 'coc-git', 'coc-pyright', 'coc-sourcekit', 'coc-translator', 'coc-flutter', 'coc-todolist', 'coc-yaml', 'coc-tasks', 'coc-actions', 'coc-diagnostic']
 "set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "nmap <silent> <TAB> <Plug>(coc-range-select)
 "xmap <silent> <TAB> <Plug>(coc-range-select)
@@ -687,6 +716,7 @@ nnoremap <leader>tu :CocCommand todolist.download<CR>:CocCommand todolist.upload
 noremap <silent> T :CocList tasks<CR>
 
 " coc-go
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 
@@ -715,25 +745,25 @@ let g:table_mode_cell_text_object_i_map = 'k<Bar>'
 "let g:fzf_preview_window = 'right:60%'
 "let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
-function! s:list_buffers()
-  redir => list
-  silent ls
-  redir END
-  return split(list, "\n")
-endfunction
+" function! s:list_buffers()
+"   redir => list
+"   silent ls
+"   redir END
+"   return split(list, "\n")
+" endfunction
 
-function! s:delete_buffers(lines)
-  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
-endfunction
+" function! s:delete_buffers(lines)
+"   execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+" endfunction
 
-command! BD call fzf#run(fzf#wrap({
-  \ 'source': s:list_buffers(),
-  \ 'sink*': { lines -> s:delete_buffers(lines) },
-  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'}))
+" command! BD call fzf#run(fzf#wrap({
+"   \ 'source': s:list_buffers(),
+"   \ 'sink*': { lines -> s:delete_buffers(lines) },
+"   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'}))
 
-noremap <c-d> :BD<CR>
+" noremap <c-d> :BD<CR>
 
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
 
 
 
@@ -909,26 +939,26 @@ let maplocalleader=' '
 " === vim-calendar
 " ===
 "noremap \c :Calendar -position=here<CR>
-noremap \\ :Calendar -view=clock -position=here<CR>
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-augroup calendar-mappings
-	autocmd!
-	" diamond cursor
-	autocmd FileType calendar nmap <buffer> u <Plug>(calendar_up)
-	autocmd FileType calendar nmap <buffer> n <Plug>(calendar_left)
-	autocmd FileType calendar nmap <buffer> e <Plug>(calendar_down)
-	autocmd FileType calendar nmap <buffer> i <Plug>(calendar_right)
-	autocmd FileType calendar nmap <buffer> <c-u> <Plug>(calendar_move_up)
-	autocmd FileType calendar nmap <buffer> <c-n> <Plug>(calendar_move_left)
-	autocmd FileType calendar nmap <buffer> <c-e> <Plug>(calendar_move_down)
-	autocmd FileType calendar nmap <buffer> <c-i> <Plug>(calendar_move_right)
-	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_start_insert)
-	autocmd FileType calendar nmap <buffer> K <Plug>(calendar_start_insert_head)
-	" unmap <C-n>, <C-p> for other plugins
-	autocmd FileType calendar nunmap <buffer> <C-n>
-	autocmd FileType calendar nunmap <buffer> <C-p>
-augroup END
+" noremap \\ :Calendar -view=clock -position=here<CR>
+" let g:calendar_google_calendar = 1
+" let g:calendar_google_task = 1
+" augroup calendar-mappings
+" 	autocmd!
+" 	" diamond cursor
+" 	autocmd FileType calendar nmap <buffer> u <Plug>(calendar_up)
+" 	autocmd FileType calendar nmap <buffer> n <Plug>(calendar_left)
+" 	autocmd FileType calendar nmap <buffer> e <Plug>(calendar_down)
+" 	autocmd FileType calendar nmap <buffer> i <Plug>(calendar_right)
+" 	autocmd FileType calendar nmap <buffer> <c-u> <Plug>(calendar_move_up)
+" 	autocmd FileType calendar nmap <buffer> <c-n> <Plug>(calendar_move_left)
+" 	autocmd FileType calendar nmap <buffer> <c-e> <Plug>(calendar_move_down)
+" 	autocmd FileType calendar nmap <buffer> <c-i> <Plug>(calendar_move_right)
+" 	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_start_insert)
+" 	autocmd FileType calendar nmap <buffer> K <Plug>(calendar_start_insert_head)
+" 	" unmap <C-n>, <C-p> for other plugins
+" 	autocmd FileType calendar nunmap <buffer> <C-n>
+" 	autocmd FileType calendar nunmap <buffer> <C-p>
+" augroup END
 
 
 " ===
@@ -973,6 +1003,9 @@ let g:go_doc_keywordprg_enabled = 0
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_diagnostic_errors = 1
 let g:go_highlight_diagnostic_warnings = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+" let g:go_auto_sameids = 1
 
 
 " ===
@@ -1028,11 +1061,11 @@ endfunction
 " ===
 " === vim-easymotion
 " ===
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_do_shade = 0
-let g:EasyMotion_smartcase = 1
-map ' <Plug>(easymotion-bd-f)
-nmap ' <Plug>(easymotion-bd-f)
+" let g:EasyMotion_do_mapping = 0
+" let g:EasyMotion_do_shade = 0
+" let g:EasyMotion_smartcase = 1
+" map ' <Plug>(easymotion-bd-f)
+" nmap ' <Plug>(easymotion-bd-f)
 "map E <Plug>(easymotion-j)
 "map U <Plug>(easymotion-k)
 "nmap f <Plug>(easymotion-overwin-f)
@@ -1220,6 +1253,7 @@ autocmd FileType python call MyCustomHighlights()
 " === AsyncTasks
 " ===
 let g:asyncrun_open = 6
+
 
 
 " ===================== End of Plugin Settings =====================

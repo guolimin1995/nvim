@@ -180,14 +180,10 @@
 			"filetypes": ["lua"]
 		},
 		"golang": {
-			"command": "/Users/zerone/go/bin/go-langserver",
+			"command": "/Users/zerone/go/bin/gopls",
 			"rootPatterns": ["go.mod"],
 			"filetypes": ["go"],
 			"initializationOptions": {
-				"gocodeCompletionEnabled": true,
-				"diagnosticsEnabled": true,
-				"lintTool": "golint",
-				"funcSnippetEnabled": true
 			}
 		},
 		"bash": {

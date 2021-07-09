@@ -79,7 +79,7 @@ set smartcase
 set shortmess+=c
 set inccommand=split
 set completeopt=longest,noinsert,menuone,noselect,preview
-set re=1
+" set re=1
 set ttyfast "should make scrolling faster
 set lazyredraw "same as above
 set visualbell
@@ -95,7 +95,6 @@ endif
 set colorcolumn=80
 set updatetime=1000
 set virtualedit=block
-
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -391,7 +390,8 @@ Plug 'junkblocker/git-time-lapse'
 " Plug 'theniceboy/vim-calc'
 
 " Pretty Dress
-Plug 'liuchengxu/eleline.vim'
+" Plug 'liuchengxu/eleline.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'bling/vim-bufferline'
 "Plug 'liuchengxu/space-vim-theme'
 "Plug 'morhetz/gruvbox'
@@ -560,6 +560,10 @@ Plug 'hzchirs/vim-material'
 Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'rainglow/vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'liuchengxu/space-vim-dark'
+
 
 " language packs
 Plug 'sheerun/vim-polyglot'
@@ -571,8 +575,7 @@ Plug 'psliwka/vim-smoothie'
 call plug#end()
 
 " experimental
-set lazyredraw
-"set regexpengine=1
+" set regexpengine=1
 
 
 " ===
@@ -590,25 +593,41 @@ let g:material_theme_style = 'oceanicnext'
 
 
 
-" colorscheme oceanicnext
-let g:onedark_termcolors=256
 " onedark setting
-if (has("autocmd"))
-  augroup colorextend
-    autocmd!
-    " Make `Function`s bold in GUI mode
-    " autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold" })
-    " Override the `Statement` foreground color in 256-color mode
-    " autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { "cterm": 128 } })
-    " Override the `Identifier` background color in GUI mode
-    autocmd ColorScheme * call onedark#extend_highlight("goVarDefs", { "fg": { "gui": "#009688" } })
-    autocmd ColorScheme * call onedark#extend_highlight("goVarAssign", { "fg": { "gui": "#009688" } })
-  augroup END
-endif 
+" let g:onedark_termcolors=256
+" if (has("autocmd"))
+"   augroup colorextend
+"     autocmd!
+"     " Make `Function`s bold in GUI mode
+"     " autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold" })
+"     " Override the `Statement` foreground color in 256-color mode
+"     " autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { "cterm": 128 } })
+"     " Override the `Identifier` background color in GUI mode
+"     autocmd ColorScheme * call onedark#extend_highlight("goVarDefs", { "fg": { "gui": "#009688" } })
+"     autocmd ColorScheme * call onedark#extend_highlight("goVarAssign", { "fg": { "gui": "#009688" } })
+"   augroup END
+" endif 
+
+" let g:onedark_color_overrides = {
+" 			\"black": {"gui": "#0d2b27", "cterm": "235", "cterm16": "0" },
+" 			\}
+
+
+
 
 "iceberg jumper
 " lichen-contrast waste
-colorscheme onedark
+colorscheme space-vim-dark
+
+" space vim dark setting
+hi Comment cterm=italic
+hi Comment guifg=#5C6370 ctermfg=59
+hi Normal     ctermbg=NONE guibg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
+let g:limelight_conceal_ctermfg='#5C6370'
+let g:limelight_conceal_guifg='#5C6370'
+
 
 let g:airline_theme='oceanicnext'
 
@@ -622,6 +641,7 @@ let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
 let g:clap_layout = { 'width': '70%', 'height': '40%', 'col': '15%', 'row': '17%' }
 let g:clap_use_pure_python = 1
 let g:clap_preview_size = 50
+let g:clap_popup_border = 'nil'
 noremap <C-p> :Clap files<CR>
 noremap <C-l> :Clap lines<CR>
 noremap <C-i> :Clap filer<CR>
@@ -962,7 +982,7 @@ let maplocalleader=' '
 
 
 " ===
-" === Anzu
+" === anzu
 " ===
 set statusline=%{anzu#search_status()}
 nnoremap = n
@@ -978,9 +998,9 @@ let g:go_template_autocreate = 0
 let g:go_textobj_enabled = 0
 let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 0
-let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_array_whitespace_error = 0
 let g:go_highlight_build_constraints = 1
-let g:go_highlight_chan_whitespace_error = 1
+let g:go_highlight_chan_whitespace_error = 0
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_format_strings = 1
@@ -990,10 +1010,10 @@ let g:go_highlight_functions = 1
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
-let g:go_highlight_space_tab_error = 1
+let g:go_highlight_space_tab_error = 0
 let g:go_highlight_string_spellcheck = 1
 let g:go_highlight_structs = 1
-let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 1
 let g:go_highlight_variable_declarations = 1
@@ -1082,8 +1102,44 @@ endfunction
 " ===
 map <LEADER>n :Goyo<CR>
 "进入goyo模式后自动触发limelight,退出后则关闭
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+let g:goyo_width = 100
+let g:goyo_height = '100%'
+let g:goyo_linenr = 10
+
+function! s:goyo_enter()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  let g:limelight_conceal_ctermfg='#5C6370'
+  let g:limelight_conceal_guifg='#5C6370'
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  hi Comment cterm=italic
+  hi Comment guifg=#5C6370 ctermfg=59
+  hi Normal     ctermbg=NONE guibg=NONE
+  hi LineNr     ctermbg=NONE guibg=NONE
+  hi SignColumn ctermbg=NONE guibg=NONE
+
+  " ...
+endfunction
+
 
 
 " ===
